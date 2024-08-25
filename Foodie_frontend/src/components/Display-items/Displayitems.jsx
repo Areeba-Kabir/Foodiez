@@ -5,29 +5,28 @@ import { useContext } from "react";
 import { StoreContext } from "../../context/StoreContext";
 
 const Displayitems = ({ id, name, price, description, image }) => {
-  const [count, setCount] = useState(0);
   const { cartItems, removefromCart, addToCart } = useContext(StoreContext);
   return (
     <div className="display-items">
       <div className="dispaly-image-container">
         <img className="dispaly-image" src={image} alt="Category Image" />
-        {!count ? (
+        {!cartItems[id] ? (
           <img
             className="add"
-            onClick={() => setCount((prev) => prev + 1)}
+            onClick={() => addToCart(id)}
             src={assets.add_icon_white}
             alt="add"
           ></img>
         ) : (
           <div className="item-counter">
             <img
-              onClick={() => setCount((prev) => prev - 1)}
+              onClick={() => removefromCart(id)}
               src={assets.remove_icon_red}
               alt="remove quantity"
             />
-            <p>{count}</p>
+            <p>{cartItems[id]}</p>
             <img
-              onClick={() => setCount((prev) => prev + 1)}
+              onClick={() => addToCart(id)}
               src={assets.add_icon_green}
               alt=""
             />
