@@ -10,16 +10,19 @@ const FoodDisplay = (props) => {
       <h2>Top Dishes near you!</h2>
       <div className="food-display-items">
         {food_list.map((item, index) => {
-          return (
-            <Displayitems
-              key={index}
-              id={item._id}
-              name={item.name}
-              price={item.price}
-              description={item.description}
-              image={item.image}
-            />
-          );
+          console.log(props.category, item.category);
+          if (props.category === "All" || props.category === item.category) {
+            return (
+              <Displayitems
+                key={index}
+                id={item._id}
+                name={item.name}
+                price={item.price}
+                description={item.description}
+                image={item.image}
+              />
+            );
+          }
         })}
       </div>
     </div>
