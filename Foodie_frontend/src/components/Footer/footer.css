@@ -28,7 +28,7 @@
 
 .footer-social-icons img {
   width: 40px;
-  margin: 0px 20px 0px 80px;
+  margin-right: 20px;
   cursor: pointer;
 }
 
@@ -52,5 +52,14 @@
   background-color: grey;
   border: none;
 }
-.footer-copyright {
+
+@media (max-width: 750px) {
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+  }
+  .footer-copyright {
+    text-align: center;
+  }
 }
