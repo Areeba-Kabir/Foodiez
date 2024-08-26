@@ -3,7 +3,7 @@ import { assets } from "../../assets/assets";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = (props) => {
   const [menu, setMenu] = useState("home");
 
   return (
@@ -47,7 +47,12 @@ const Navbar = () => {
             <div className="dot"></div>
           </div>
           <div>
-            <button className="navbar-button">Sign in</button>
+            <button
+              onClick={() => props.setShowpopup(true)}
+              className="navbar-button"
+            >
+              Sign in
+            </button>
           </div>
         </div>
       </div>
