@@ -9,15 +9,17 @@ const Navbar = (props) => {
   return (
     <div>
       <div className="navbar" id="navbar">
-        <img src={assets.logo} alt="Logo" className="logo" />
+        <Link to={"/"}>
+          <img src={assets.logo} alt="Logo" className="logo" />
+        </Link>
         <ul className="navbar-menu">
-          <a
-            href="#navbar"
+          <Link
+            to={"/"}
             onClick={() => setMenu("home")}
             className={menu === "home" ? "active" : ""}
           >
             Home
-          </a>
+          </Link>
           <a
             href="#explore-menu"
             onClick={() => setMenu("menu")}
@@ -43,7 +45,10 @@ const Navbar = (props) => {
         <div className="navbar-right">
           <img src={assets.search_icon} alt="search icon" />
           <div className="navbar-search-icon">
-            <img src={assets.basket_icon} alt="basket_icon" />
+            <Link to={"/cart"}>
+              {" "}
+              <img src={assets.basket_icon} alt="basket_icon" />
+            </Link>
             <div className="dot"></div>
           </div>
           <div>
