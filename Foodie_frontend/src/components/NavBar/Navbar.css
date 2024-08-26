@@ -5,6 +5,19 @@
   align-items: center;
 }
 
+/* .navbar {
+  padding: 20px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 80%;
+  background-color: white;
+  z-index: 1000;
+  box-shadow: 0 2px 0px rgba(0, 0, 0, 0.1);
+} */
+
 .navbar .logo {
   width: 150px;
 }
@@ -15,6 +28,10 @@
   gap: 20px;
   color: #49557e;
   font-size: 18px;
+}
+
+li {
+  cursor: pointer;
 }
 
 .navbar-right {
