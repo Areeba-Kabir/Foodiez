@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { assets } from "../../assets/assets";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
+import { StoreContext } from "../../context/StoreContext";
 
 const Navbar = (props) => {
   const [menu, setMenu] = useState("home");
-
+  const { getTotalAmount } = useContext(StoreContext);
   return (
     <div>
       <div className="navbar" id="navbar">
@@ -49,7 +50,7 @@ const Navbar = (props) => {
               {" "}
               <img src={assets.basket_icon} alt="basket_icon" />
             </Link>
-            <div className="dot"></div>
+            <div className={getTotalAmount() === 0 ? "" : "dot"}></div>
           </div>
           <div>
             <button
