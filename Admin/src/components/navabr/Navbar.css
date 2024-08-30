@@ -5,3 +5,11 @@
   padding: 8px 4%;
 }
 
+@media (max-width: 900px) {
+  .navbar .logo {
+    width: 90px;
+  }
+  .navbar .profile {
+    width: 20px;
+  }
+}

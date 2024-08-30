@@ -30,9 +30,14 @@
   border-radius: 50%;
 }
 
+.sidebar-option.active {
+  background-color: #efefef;
+  border: 1px solid black;
+}
+
 p {
-  color: #a9a9a9a9;
-  font-weight: 500;
+  color: #000000a9;
+  font-weight: 600;
 }
 
 @media (max-width: 900px) {
