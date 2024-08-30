@@ -4,7 +4,7 @@
   margin: 0;
   box-sizing: border-box;
   font-family: Moderustic;
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */
 }
 body {
   min-height: 100vh;
@@ -16,20 +16,12 @@ a {
 }
 
 hr {
-  height: 1px;
-  color: #a9a9a9;
   border: none;
-}
-.app {
-  width: 80%;
-  margin: auto;
+  height: 1px;
+  background-color: #a9a9a9a9;
+  width: 100%;
 }
 
-@keyframes fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+.app-content {
+  display: flex;
 }
