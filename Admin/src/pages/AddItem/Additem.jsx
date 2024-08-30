@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { assets } from "../../assets/assets";
 import "./Additem.css";
+import axios from "axios";
 
 const Additem = () => {
+  const url = "http://localhost:4000";
+
   const [image, setImage] = useState(false);
   const [data, setData] = useState({
     name: "",
@@ -17,13 +20,35 @@ const Additem = () => {
     setData((data) => ({ ...data, [name]: value }));
   };
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  const onSubmitHandler = async (event) => {
+    try {
+      event.preventDefault();
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("description", data.description);
+      formData.append("price", Number(data.price));
+      formData.append("category", data.category);
+      formData.append("image", image);
+      const response = await axios.post(`${url}/api/foody/additem`, formData);
+      if (response.data.success) {
+        setData({
+          name: "",
+          description: "",
+          price: "",
+          category: "Pasta",
+        });
+        setImage(false);
+      } else {
+        event.preventDefault();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="add">
-      <form action="" className="flex-col">
+      <form onSubmit={onSubmitHandler} className="flex-col">
         <div className="add-img-upload flex-col">
           <p>Upload Image</p>
           <label htmlFor="image">
