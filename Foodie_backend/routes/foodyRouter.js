@@ -29,6 +29,8 @@ router.get("/food/:id", getFood);
 
 router.patch("/updateitem/:id", upload.single("image"), updateFoodItem);
 
-router.post("/removeitem", removeFoodItem);
+//router.post("/removeitem", removeFoodItem);
+
+router.delete("/removeitem/:id", removeFoodItem);
 
 export default router;

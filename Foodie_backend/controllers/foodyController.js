@@ -31,31 +31,33 @@ const getAllFood = async (req, res) => {
 
 const removeFoodItem = async (req, res) => {
   try {
-    const food_item = await foodyModel.findById(req.body.id);
-    console.log(req.body.id); 
-    if (!food_item) {
-      return res.status(404).json({ success: false, message: "Food item not found!" });
-    }
-    fs.unlink(`uploads/${food_item.image}`, (err) => {
-      if (err) console.log("Error deleting image file:", err);
-    });
+    const food = await foodyModel.findById(req.params.id);
+    fs.unlink(`uploads/${food.image}`, () => {});
 
     await foodyModel.findByIdAndDelete(req.params.id);
-    res.status(200).json({
-      success: true,
-      data: food_item,
-      message: "Item deleted successfully!",
-    });
+    res.status(200).json({ success: true, message: "Food item removed" });
   } catch (error) {
-    console.log("Deletion failed:", error);
-    res.status(500).json({ success: false, message: error.message });
+    console.log("error removing");
+    res.status(404).json({ success: false, message: error.message });
   }
 };
 
+// const removeFoodItem = async (req, res) => {
+//   try {
+//     const food = await foodyModel.findById(req.body.id);
+//     fs.unlink(`uploads/${food.image}`, () => {});
+
+//     await foodyModel.findByIdAndDelete(req.body.id);
+//     res.status(200).json({ success: true, message: "Food item removed" });
+//   } catch (error) {
+//     console.log('error removing')
+//     res.status(404).json({ success: false, message: error.message });
+//   }
+// };
 
 const updateFoodItem = async (req, res) => {
   try {
-    const { id } = req.params; // Use route parameters
+    const { id } = req.params;
     const food_item = await foodyModel.findById(id);
 
     if (!food_item) {
@@ -93,7 +95,6 @@ const updateFoodItem = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
-
 
 const getFood = async (req, res) => {
   try {
