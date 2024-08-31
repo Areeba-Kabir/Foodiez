@@ -31,8 +31,8 @@
 }
 
 .sidebar-option.active {
-  background-color: #efefef;
-  border: 1px solid black;
+  background-color: #fb917fcc;
+  border: 1px solid #bdb5b5;
 }
 
 p {

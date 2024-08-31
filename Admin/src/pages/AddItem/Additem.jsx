@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { assets } from "../../assets/assets";
 import "./Additem.css";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Additem = () => {
   const url = "http://localhost:4000";
 
   const [image, setImage] = useState(false);
+
   const [data, setData] = useState({
     name: "",
     description: "",
@@ -23,26 +25,32 @@ const Additem = () => {
   const onSubmitHandler = async (event) => {
     try {
       event.preventDefault();
-      const formData = new FormData();
-      formData.append("name", data.name);
-      formData.append("description", data.description);
-      formData.append("price", Number(data.price));
-      formData.append("category", data.category);
-      formData.append("image", image);
-      const response = await axios.post(`${url}/api/foody/additem`, formData);
-      if (response.data.success) {
-        setData({
-          name: "",
-          description: "",
-          price: "",
-          category: "Pasta",
-        });
-        setImage(false);
+      if (!image) {
+        toast.warn("Please upload image!");
       } else {
-        event.preventDefault();
+        const formData = new FormData();
+        formData.append("name", data.name);
+        formData.append("description", data.description);
+        formData.append("price", Number(data.price));
+        formData.append("category", data.category);
+        formData.append("image", image);
+        const response = await axios.post(`${url}/api/foody/additem`, formData);
+        if (response.data.success) {
+          setData({
+            name: "",
+            description: "",
+            price: "",
+            category: "Pasta",
+          });
+          setImage(false);
+          toast.success(response.data.message);
+        } else {
+          event.preventDefault();
+        }
       }
     } catch (error) {
       console.log(error);
+      toast.error("Failed to add Data!");
     }
   };
 
@@ -54,15 +62,16 @@ const Additem = () => {
           <label htmlFor="image">
             <img
               src={image ? URL.createObjectURL(image) : assets.upload_area}
-              alt=""
+              alt="upload_image"
+              style={{ opacity: image ? 1 : 0.4 }}
             />
           </label>
           <input
             onChange={(e) => setImage(e.target.files[0])}
             type="file"
             id="image"
+            name="image"
             hidden
-            required
           />
         </div>
         <div className="add-product-name flex-col">
@@ -84,6 +93,7 @@ const Additem = () => {
             name="description"
             rows="6"
             placeholder="Enter product description"
+            required
           />
         </div>
 
@@ -111,6 +121,7 @@ const Additem = () => {
               placeholder="$0"
               onChange={onChangeHandler}
               value={data.price}
+              required
             />
           </div>
         </div>
