@@ -4,7 +4,6 @@ import connectDB from "./config/db.js";
 import foodRouter from "./routes/foodyRouter.js";
 import userRouter from "./routes/userRoutes.js";
 
-const PORT = 4000;
 const app = express();
 
 //middleware
@@ -26,6 +25,6 @@ app.get("/", (req, res) => {
   res.send("API is working");
 });
 
-app.listen(PORT, () => {
-  console.log(`server listens on: http://localhost:${PORT} `);
+app.listen(process.env.PORT, () => {
+  console.log(`server listens on: http://localhost:${process.env.PORT} `);
 });
