@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import connectDB from "./config/db.js";
-import router from "./routes/foodyRouter.js";
+import foodRouter from "./routes/foodyRouter.js";
+import userRouter from "./routes/userRoutes.js";
 
 const PORT = 4000;
 const app = express();
@@ -14,9 +15,12 @@ app.use(cors());
 
 //connection with database
 connectDB();
-
-app.use("/api/foody", router);
+// food api configuration
+app.use("/api/foody", foodRouter);
 app.use("/image", express.static("uploads"));
+
+// user api configuration
+app.use("/api/user", userRouter);
 
 app.get("/", (req, res) => {
   res.send("API is working");

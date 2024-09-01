@@ -8,7 +8,7 @@ import {
   getFood,
 } from "../controllers/foodyController.js";
 
-const router = express.Router();
+const foodRouter = express.Router();
 
 //Image Storage engine
 
@@ -21,16 +21,16 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post("/additem", upload.single("image"), addFood);
+foodRouter.post("/additem", upload.single("image"), addFood);
 
-router.get("/foodlist", getAllFood);
+foodRouter.get("/foodlist", getAllFood);
 
-router.get("/food/:id", getFood);
+foodRouter.get("/food/:id", getFood);
 
-router.patch("/updateitem/:id", upload.single("image"), updateFoodItem);
+foodRouter.patch("/updateitem/:id", upload.single("image"), updateFoodItem);
 
 //router.post("/removeitem", removeFoodItem);
 
-router.delete("/removeitem/:id", removeFoodItem);
+foodRouter.delete("/removeitem/:id", removeFoodItem);
 
-export default router;
+export default foodRouter;
