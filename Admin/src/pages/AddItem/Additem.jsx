@@ -4,9 +4,7 @@ import "./Additem.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const Additem = () => {
-  const url = "http://localhost:4000";
-
+const Additem = (props) => {
   const [image, setImage] = useState(false);
 
   const [data, setData] = useState({
@@ -34,7 +32,10 @@ const Additem = () => {
         formData.append("price", Number(data.price));
         formData.append("category", data.category);
         formData.append("image", image);
-        const response = await axios.post(`${url}/api/foody/additem`, formData);
+        const response = await axios.post(
+          `${props.url}/api/foody/additem`,
+          formData
+        );
         if (response.data.success) {
           setData({
             name: "",
@@ -43,7 +44,7 @@ const Additem = () => {
             category: "Pasta",
           });
           setImage(false);
-          toast.success(response.data.message);
+          toast.success(" " + data.name + " Added Successfully!");
         } else {
           event.preventDefault();
         }
