@@ -10,38 +10,47 @@ const loginUser = async (req, res) => {
   try {
     const user = await userModel.findOne({ email });
     if (!user) {
-      res.status(404).json({ success: false, message: "User not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      res
-        .status(404)
-        .json({ success: false, message: "Invalid username or password!" });
+      return res.status(404).json({
+        success: false,
+        message: "Invalid username or password!",
+      });
     }
     const token = await createToken(user._id);
-    res.status(200).json({ success: true, message: "Login Success", token });
+    return res
+      .status(200)
+      .json({ success: true, message: "Login Success", token });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Login failed" });
+    return res.status(500).json({ success: false, message: "Login failed" });
   }
 };
 
 const createToken = (id) => {
-  return jwt.sign({ id }, process.env.jwt_secret);
+  return jwt.sign({ id }, process.env.jwt_secret, { expiresIn: "1d" });
 };
 
 //register
 const registerUser = async (req, res) => {
   const { name, password, email } = req.body;
   try {
-    const exist = await userModel.findOne({ email });
     if (!validator.isEmail(email)) {
-      res
-        .status(404)
-        .json({ success: false, message: "Enter valid email please." });
+      return res
+        .status(400)
+        .json({ success: false, message: "Enter a valid email, please." });
     }
+
+    const exist = await userModel.findOne({ email });
     if (exist) {
-      res.status(404).json({ success: false, message: "User already exists!" });
+      return res
+        .status(400)
+        .json({ success: false, message: "User already exists!" });
     }
+
     // Password strength validation
     const passwordValidation = {
       minLength: 8,
@@ -93,12 +102,14 @@ const registerUser = async (req, res) => {
 
     const user = await newUser.save();
     const token = createToken(user._id);
-    res
+    return res
       .status(200)
-      .json({ success: true, message: "user added successfully", token });
+      .json({ success: true, message: "User added successfully", token });
   } catch (error) {
     console.log(error.message);
-    res.status(404).json({ success: false, message: "Failed to signup" });
+    return res
+      .status(500)
+      .json({ success: false, message: "Failed to signup" });
   }
 };
 

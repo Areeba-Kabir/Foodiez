@@ -16,10 +16,16 @@ const LoginPopup = (props) => {
     password: "",
   });
 
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+
   const onChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setData((data) => ({ ...data, [name]: value }));
+  };
+
+  const onCheckboxChange = (event) => {
+    setAcceptedTerms(event.target.checked);
   };
 
   const onSubmitHandler = async (event) => {
@@ -33,17 +39,18 @@ const LoginPopup = (props) => {
       }
 
       const response = await axios.post(newURL, data);
-
       if (response.data.success) {
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
+        toast.success(`${currState} successful!`);
         props.setShowpopup(false);
+        setData({ name: "", email: "", password: "" }); // Clear form
       } else {
-        alert(response.data.message);
+        toast.error(response.data.message);
       }
     } catch (error) {
       console.log(error);
-      toast.error("Login failed!");
+      toast.error(`${currState} failed!`);
     }
   };
 
@@ -59,13 +66,11 @@ const LoginPopup = (props) => {
           <img
             onClick={() => props.setShowpopup(false)}
             src={assets.cross_icon}
-            alt=""
+            alt="Close"
           />
         </div>
         <div className="login-popup-inputs">
-          {currState === "Login" ? (
-            <></>
-          ) : (
+          {currState === "Sign Up" && (
             <input
               type="text"
               name="name"
@@ -97,11 +102,20 @@ const LoginPopup = (props) => {
           />
         </div>
         <div className="login-popup-condition">
-          <input type="checkbox" name="" id="" required />
-          <p>By continuing, i agree to the terms of use & privacy policy.</p>
+          <input
+            type="checkbox"
+            name="terms"
+            id="terms"
+            checked={acceptedTerms}
+            onChange={onCheckboxChange}
+            required
+          />
+          <p>By continuing, I agree to the terms of use & privacy policy.</p>
         </div>
 
-        <button type="Submit">{currState}</button>
+        <button type="Submit" disabled={!acceptedTerms}>
+          {currState}
+        </button>
 
         {currState === "Login" ? (
           <p>

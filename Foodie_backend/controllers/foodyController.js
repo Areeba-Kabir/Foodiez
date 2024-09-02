@@ -40,6 +40,7 @@ const removeFoodItem = async (req, res) => {
     console.log("error removing");
     res.status(404).json({ success: false, message: error.message });
   }
+  
 };
 
 // const removeFoodItem = async (req, res) => {
