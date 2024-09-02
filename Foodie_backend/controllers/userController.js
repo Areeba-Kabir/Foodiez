@@ -10,18 +10,18 @@ const loginUser = async (req, res) => {
   try {
     const user = await userModel.findOne({ email });
     if (!user) {
-      res.status(404).json({ status: false, message: "User not found" });
+      res.status(404).json({ success: false, message: "User not found" });
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       res
         .status(404)
-        .json({ status: false, message: "Invalid username or password!" });
+        .json({ success: false, message: "Invalid username or password!" });
     }
     const token = await createToken(user._id);
-    res.status(200).json({ status: true, message: "Login Success", token });
+    res.status(200).json({ success: true, message: "Login Success", token });
   } catch (error) {
-    res.status(500).json({ status: false, message: "Login failed" });
+    res.status(500).json({ success: false, message: "Login failed" });
   }
 };
 

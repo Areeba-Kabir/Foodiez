@@ -4,7 +4,10 @@ import { food_list } from "../assets/assets";
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
+  const url = "http://localhost:4000";
+
   const [cartItems, setcartItems] = useState({});
+  const [token, setToken] = useState("");
 
   const addToCart = (itemId) => {
     if (!cartItems[itemId]) {
@@ -43,6 +46,9 @@ const StoreContextProvider = (props) => {
     removefromCart,
     addToCart,
     getTotalAmount,
+    url,
+    token,
+    setToken,
   };
 
   return (
