@@ -73,3 +73,17 @@
   font-weight: 500;
   cursor: pointer;
 }
+
+.input-error {
+  border: 1px solid red;
+}
+
+.password-errors {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.error-message {
+  margin: 0;
+}

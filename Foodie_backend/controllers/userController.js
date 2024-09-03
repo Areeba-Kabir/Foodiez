@@ -66,18 +66,6 @@ const registerUser = async (req, res) => {
         message: "Password must be at least 8 characters long.",
       });
     }
-    if (!passwordValidation.hasLowerCase) {
-      return res.status(400).json({
-        success: false,
-        message: "Password must contain at least one lowercase letter.",
-      });
-    }
-    if (!passwordValidation.hasUpperCase) {
-      return res.status(400).json({
-        success: false,
-        message: "Password must contain at least one uppercase letter.",
-      });
-    }
     if (!passwordValidation.hasDigit) {
       return res.status(400).json({
         success: false,

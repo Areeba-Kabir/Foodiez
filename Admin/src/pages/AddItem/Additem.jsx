@@ -11,7 +11,7 @@ const Additem = (props) => {
     name: "",
     description: "",
     price: "",
-    category: "Pasta",
+    category: "Salad",
   });
 
   const onChangeHandler = (event) => {
@@ -41,7 +41,7 @@ const Additem = (props) => {
             name: "",
             description: "",
             price: "",
-            category: "Pasta",
+            category: "Salad",
           });
           setImage(false);
           toast.success(" " + data.name + " Added Successfully!");
