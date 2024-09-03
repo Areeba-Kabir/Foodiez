@@ -4,14 +4,15 @@ import "./Displayitems.css";
 import { useContext } from "react";
 import { StoreContext } from "../../context/StoreContext";
 
-const Displayitems = ({ id, name, price, description, image, url }) => {
-  const { cartItems, removefromCart, addToCart } = useContext(StoreContext);
+const Displayitems = ({ id, name, price, description, image }) => {
+  const { cartItems, removefromCart, addToCart, url } =
+    useContext(StoreContext);
   return (
     <div className="display-items">
       <div className="dispaly-image-container">
         <img
           className="dispaly-image"
-          src={url + "/image/" + image}
+          src={url+ "/image/" +image}
           alt="Category Image"
         />
         {!cartItems[id] ? (

@@ -52,11 +52,6 @@ const LoginPopup = (props) => {
       setPasswordErrors(errors);
       setPasswordHasError(errors.length > 0);
     }
-    
-  };
-
-  const onCheckboxChange = (event) => {
-    setAcceptedTerms(event.target.checked);
   };
 
   const onSubmitHandler = async (event) => {
@@ -159,13 +154,7 @@ const LoginPopup = (props) => {
             : ""}
         </div>
         <div className="login-popup-condition">
-          <input
-            type="checkbox"
-            name="terms"
-            id="terms"
-            onChange={onCheckboxChange}
-            required
-          />
+          <input type="checkbox" name="terms" id="terms" required />
           <p>By continuing, I agree to the terms of use & privacy policy.</p>
         </div>
 
