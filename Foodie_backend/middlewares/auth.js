@@ -1,9 +1,14 @@
 import jwt from "jsonwebtoken";
 
 const authMiddleware = async (req, res, next) => {
-  const { token } = req.headers;
+  const { token } = req.headers || req.query.token;
+  console.log(req.headers.authorization?.split(" ")[1]);
+  console.log(req.query.token);
   if (!token) {
-    return res.json({ success: false, message: "not Authorized Login again" });
+    return res.status(401).json({
+      success: false,
+      message: "Not Authorized. Please log in again.",
+    });
   }
 
   try {
@@ -12,8 +17,11 @@ const authMiddleware = async (req, res, next) => {
     next();
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: "Error" });
+    res.status(403).json({
+      success: false,
+      message: "Token is invalid or expired. Please log in again.",
+    });
   }
 };
 
-export default authMiddleware;
+export { authMiddleware };
