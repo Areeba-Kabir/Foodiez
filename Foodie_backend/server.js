@@ -4,6 +4,7 @@ import connectDB from "./config/db.js";
 import foodRouter from "./routes/foodyRouter.js";
 import userRouter from "./routes/userRoutes.js";
 import cartRouter from "./routes/cartRoutes.js";
+import orderRouter from "./routes/orderRoutes.js";
 
 
 const app = express();
@@ -23,8 +24,11 @@ app.use("/image", express.static("uploads"));
 // user api configuration
 app.use("/api/user", userRouter);
 
-
+// cart api configuration
 app.use('/api/cart', cartRouter);
+
+// order api configuration
+app.use("/api/order", orderRouter);
 
 app.get("/", (req, res) => {
   res.send("API is working");
