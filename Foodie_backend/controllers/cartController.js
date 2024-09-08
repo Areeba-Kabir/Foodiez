@@ -22,7 +22,8 @@ const addToCart = async (req, res) => {
 const removeFromCart = async (req, res) => {
   try {
     let userId = req.body.userId; // Extract userId from req.user set by authMiddleware
-    let itemId = req.query.itemId;
+    //let itemId = req.body.itemId || req.query.itemId; //if used with post method!
+    let itemId = req.params.itemId;
     let userData = await userModel.findById(userId);
     let cartData = await userData.cartData;
     if (cartData[itemId] > 0) {
