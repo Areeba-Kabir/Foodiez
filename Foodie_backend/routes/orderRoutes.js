@@ -4,11 +4,8 @@ import authMiddleware from "../middlewares/auth.js";
 
 import { placeOrder } from "../controllers/orderController.js";
 
+const orderRouter = express.Router();
 
-const orderRouter = exprees.Router();
-
-orderRouter.post('/place', authMiddleware, placeOrder);
-
-
+orderRouter.post("/place", authMiddleware, placeOrder);
 
 export default orderRouter;
